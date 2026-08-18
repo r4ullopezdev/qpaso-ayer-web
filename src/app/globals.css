@@ -1,26 +1,171 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0a0d;
+  --bg-2: #141118;
+  --panel: #17141c;
+  --panel-2: #1e1a25;
+  --border: #2a2531;
+  --gold: #f5c542;
+  --gold-2: #e7b44a;
+  --red: #e4322b;
+  --red-2: #ff4b45;
+  --text: #f4f1ea;
+  --muted: #a49db0;
+  --white: #ffffff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-gold: var(--gold);
+  --color-red: var(--red);
+  --color-muted: var(--muted);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(1100px 600px at 50% -10%, rgba(245, 197, 66, 0.08), transparent 60%),
+    radial-gradient(800px 500px at 100% 0%, rgba(228, 50, 43, 0.08), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), Impact, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Layout helpers ---------- */
+.container-x {
+  width: 100%;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.section {
+  padding-block: 64px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease, background 0.12s ease;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-gold {
+  background: linear-gradient(180deg, var(--gold), var(--gold-2));
+  color: #1a1300;
+  box-shadow: 0 6px 20px rgba(245, 197, 66, 0.25);
+}
+.btn-gold:hover {
+  filter: brightness(1.06);
+}
+.btn-red {
+  background: linear-gradient(180deg, var(--red-2), var(--red));
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(228, 50, 43, 0.28);
+}
+.btn-red:hover {
+  filter: brightness(1.06);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ---------- Cards / panels ---------- */
+.card {
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  color: var(--gold);
+  background: rgba(245, 197, 66, 0.08);
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* marquee bulb divider (guiño al logo de Las Vegas) */
+.bulbs {
+  height: 10px;
+  background-image: radial-gradient(circle, var(--gold) 0 2.2px, transparent 3px);
+  background-size: 18px 10px;
+  background-position: center;
+  opacity: 0.65;
+}
+
+label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--gold);
+}
+
+a {
+  color: inherit;
 }

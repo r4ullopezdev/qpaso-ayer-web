@@ -1,0 +1,90 @@
+// Prisma schema — Qué Pasó Ayer (web de eventos + restaurante)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+/// Un evento de la programación (Travelers Night, Main Event, etc.)
+model Event {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  subtitle    String?
+  description  String?
+  motor       String?  // Turismo / Universitario / After-work / Fiesta / Social / Lanzamiento
+  date        DateTime // fecha + hora de inicio del evento
+  startTime   String   @default("22:00") // texto mostrado, ej. "22:00"
+  coverImage  String?  // ruta a imagen de portada (opcional)
+  published   Boolean  @default(false)
+  closed      Boolean  @default(false) // evento pasado / cerrado a inscripciones
+
+  // Configuración de la lista gratuita (sin pagos): dos listas diferenciadas
+  girlsListOpen  Boolean @default(true)
+  guysListOpen   Boolean @default(true)
+  girlsFreeUntil String  @default("00:00") // entrada gratis para CHICAS hasta esta hora
+  guysFreeUntil  String  @default("23:00") // entrada gratis para CHICOS hasta esta hora
+  girlsCap       Int? // cupo máximo de la lista CHICAS (null = sin límite)
+  guysCap        Int? // cupo máximo de la lista CHICOS (null = sin límite)
+
+  signups   Signup[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([date])
+}
+
+enum ListType {
+  CHICAS
+  CHICOS
+}
+
+/// Inscripción gratuita a la lista de un evento
+model Signup {
+  id        String   @id @default(cuid())
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId   String
+  list      String   // "CHICAS" | "CHICOS"
+  name      String
+  phone     String?
+  email     String?
+  guests    Int      @default(1)
+  checkedIn Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([eventId])
+}
+
+/// Sección de la carta del restaurante (editable; se llenará con el PDF más adelante)
+model MenuSection {
+  id    String     @id @default(cuid())
+  title String
+  order Int        @default(0)
+  items MenuItem[]
+}
+
+model MenuItem {
+  id          String      @id @default(cuid())
+  section     MenuSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId   String
+  name        String
+  description String?
+  price       String? // texto libre, ej. "$9"
+  order       Int         @default(0)
+}
+
+/// Ajustes editables del sitio (clave/valor): whatsapp, dirección, horario, textos del hero...
+model Setting {
+  key   String @id
+  value String
+}
