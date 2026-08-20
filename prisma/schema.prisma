@@ -8,10 +8,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// Usuarios del panel: ADMIN (todo) o DOOR (solo escáner de puerta)
 model AdminUser {
   id           String   @id @default(cuid())
   username     String   @unique
   passwordHash String
+  role         String   @default("ADMIN") // "ADMIN" | "DOOR"
+  createdAt    DateTime @default(now())
+}
+
+/// Promotor: capta gente con su link de referido y cobra por persona que entra
+model Promoter {
+  id           String   @id @default(cuid())
+  code         String   @unique // aparece en el link ?ref=CODE
+  name         String
+  passwordHash String
+  active       Boolean  @default(true)
+  signups      Signup[]
   createdAt    DateTime @default(now())
 }
 
@@ -22,68 +35,106 @@ model Event {
   title       String
   subtitle    String?
   description  String?
-  motor       String?  // Turismo / Universitario / After-work / Fiesta / Social / Lanzamiento
+  subtitleEn   String?
+  descriptionEn String?
+  motor       String? // Turismo / Universitario / After-work / Fiesta / Social / Lanzamiento
   date        DateTime // fecha + hora de inicio del evento
   startTime   String   @default("22:00") // texto mostrado, ej. "22:00"
-  coverImage  String?  // ruta a imagen de portada (opcional)
+  coverImage  String? // ruta a imagen de portada (opcional)
   published   Boolean  @default(false)
   closed      Boolean  @default(false) // evento pasado / cerrado a inscripciones
 
-  // Configuración de la lista gratuita (sin pagos): dos listas diferenciadas
+  // Lista gratuita (sin pagos): dos listas diferenciadas
   girlsListOpen  Boolean @default(true)
   guysListOpen   Boolean @default(true)
-  girlsFreeUntil String  @default("00:00") // entrada gratis para CHICAS hasta esta hora
-  guysFreeUntil  String  @default("23:00") // entrada gratis para CHICOS hasta esta hora
-  girlsCap       Int? // cupo máximo de la lista CHICAS (null = sin límite)
-  guysCap        Int? // cupo máximo de la lista CHICOS (null = sin límite)
+  girlsFreeUntil String  @default("00:00")
+  guysFreeUntil  String  @default("23:00")
+  girlsCap       Int?
+  guysCap        Int?
+
+  // Entrada de pago (se paga en puerta)
+  paidEntryOpen Boolean @default(true)
+  paidPrice     String  @default("$10")
+
+  // Mesa para chicas (grupos): requiere código de un solo uso
+  girlsTableOpen Boolean @default(true)
+  girlsTableMin  Int     @default(4)
 
   signups   Signup[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([date])
 }
 
-enum ListType {
-  CHICAS
-  CHICOS
-}
-
-/// Inscripción gratuita a la lista de un evento
+/// Inscripción a un evento (lista gratis, pago en puerta o mesa para chicas)
 model Signup {
-  id        String   @id @default(cuid())
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  id        String  @id @default(cuid())
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId   String
-  list      String   // "CHICAS" | "CHICOS"
+  entryType String  @default("FREE") // "FREE" | "PAID" | "TABLE_GIRLS"
+  list      String // "CHICAS" | "CHICOS" (para FREE y TABLE_GIRLS = CHICAS)
   name      String
   phone     String?
-  email     String?
-  guests    Int      @default(1)
-  checkedIn Boolean  @default(false)
+  email     String
+  guests    Int     @default(1)
+
+  // Referido / promotor
+  promoter   Promoter? @relation(fields: [promoterId], references: [id], onDelete: SetNull)
+  promoterId String?
+
+  // Entrada / QR
+  token     String  @unique // va en el QR
+  tableCode String? // código de mesa usado (si TABLE_GIRLS)
+
+  // Control de puerta
+  checkedIn   Boolean   @default(false)
+  checkedInAt DateTime?
+  checkedInBy String? // username del portero
+  manual      Boolean   @default(false) // registrado a mano por el portero (sin datos de la persona)
+
   createdAt DateTime @default(now())
 
   @@index([eventId])
+  @@index([promoterId])
+  @@index([checkedInAt])
 }
 
-/// Sección de la carta del restaurante (editable; se llenará con el PDF más adelante)
+/// Código de un solo uso para "Mesa para chicas". El admin los genera; al usarse desaparece.
+model TableCode {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  used          Boolean   @default(false)
+  usedAt        DateTime?
+  usedBySignup  String? // id del signup que lo consumió
+  note          String?
+  createdAt     DateTime  @default(now())
+}
+
+/// Sección de la carta del restaurante
 model MenuSection {
-  id    String     @id @default(cuid())
-  title String
-  order Int        @default(0)
-  items MenuItem[]
+  id      String     @id @default(cuid())
+  title   String
+  titleEn String?
+  order   Int        @default(0)
+  items   MenuItem[]
 }
 
 model MenuItem {
-  id          String      @id @default(cuid())
-  section     MenuSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  sectionId   String
-  name        String
-  description String?
-  price       String? // texto libre, ej. "$9"
-  order       Int         @default(0)
+  id            String      @id @default(cuid())
+  section       MenuSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId     String
+  name          String
+  nameEn        String?
+  description   String?
+  descriptionEn String?
+  price         String?
+  featured      Boolean     @default(false)
+  image         String?
+  order         Int         @default(0)
 }
 
-/// Ajustes editables del sitio (clave/valor): whatsapp, dirección, horario, textos del hero...
+/// Ajustes editables del sitio (clave/valor)
 model Setting {
   key   String @id
   value String

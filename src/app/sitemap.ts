@@ -7,7 +7,8 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 
-  const staticPages = ["", "/eventos", "/restaurante", "/nosotros", "/blog"].map((p) => ({
+  const paths = ["", "/eventos", "/restaurante", "/nosotros", "/blog", "/en", "/en/eventos", "/en/restaurante", "/en/nosotros"];
+  const staticPages = paths.map((p) => ({
     url: `${base}${p}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
@@ -20,12 +21,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       where: { published: true },
       select: { slug: true, updatedAt: true },
     });
-    eventPages = events.map((e) => ({
-      url: `${base}/eventos/${e.slug}`,
-      lastModified: e.updatedAt,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    }));
+    eventPages = events.flatMap((e) => [
+      { url: `${base}/eventos/${e.slug}`, lastModified: e.updatedAt, changeFrequency: "weekly" as const, priority: 0.8 },
+      { url: `${base}/en/eventos/${e.slug}`, lastModified: e.updatedAt, changeFrequency: "weekly" as const, priority: 0.7 },
+    ]);
   } catch {
     // ignore
   }

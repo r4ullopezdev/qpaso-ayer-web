@@ -2,6 +2,26 @@
 
 App: Next.js 16 (output `standalone`) + Prisma. Recomendado: **Azure App Service (Linux, Node 20)**.
 
+## ⚡ Terminar el deploy en 3 pasos (lo más rápido)
+El código ya está listo y commiteado. La CLI de Azure (v2.89) está instalada pero **sin sesión** —
+por seguridad no inicié sesión ni creé recursos facturables estando tú fuera. Cuando vuelvas:
+
+```bash
+# 1) Autenticarte (abre el navegador una vez)
+az login
+
+# 2) Desde la carpeta del proyecto, desplegar en el plan GRATIS (F1)
+cd "C:\Users\Raul Lopez\Desktop\que-paso-ayer-web"
+az webapp up --name qpaso-ayer-web --resource-group qpa-rg --sku F1 --location eastus --runtime "NODE:20-lts"
+
+# 3) Configurar variables y comando de arranque (ver secciones de abajo), luego reiniciar:
+az webapp config appsettings set -g qpa-rg -n qpaso-ayer-web --settings DATABASE_URL="file:/home/data/dev.db" SESSION_SECRET="<largo-aleatorio>" ADMIN_USERNAME="admin" ADMIN_PASSWORD="<clave-fuerte>" NEXT_PUBLIC_SITE_URL="https://qpaso-ayer-web.azurewebsites.net" SCM_DO_BUILD_DURING_DEPLOYMENT="1"
+az webapp config set -g qpa-rg -n qpaso-ayer-web --startup-file "mkdir -p /home/data && npx prisma db push --skip-generate && node server.js"
+```
+> El nombre `qpaso-ayer-web` debe ser único global; si está tomado, cambia el `--name`.
+> Alternativa sin CLI: sube el repo a GitHub y conéctalo en App Service → Deployment Center.
+
+
 ## Variables de entorno (App Service → Configuration → Application settings)
 ```
 DATABASE_URL=file:/home/data/dev.db      # ruta persistente en App Service (/home persiste)

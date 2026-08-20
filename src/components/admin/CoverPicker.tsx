@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-export function CoverPicker({ initial }: { initial?: string | null }) {
+export function CoverPicker({ initial, name = "coverImage", label = "Arte del evento (imagen)", compact = false }: { initial?: string | null; name?: string; label?: string; compact?: boolean }) {
   const [value, setValue] = useState(initial ?? "");
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -32,13 +32,13 @@ export function CoverPicker({ initial }: { initial?: string | null }) {
 
   return (
     <div>
-      <label>Arte del evento (imagen)</label>
-      <input type="hidden" name="coverImage" value={value} />
+      <label>{label}</label>
+      <input type="hidden" name={name} value={value} />
       <div style={{ display: "flex", gap: 14, alignItems: "flex-start", flexWrap: "wrap", marginTop: 6 }}>
         <div
           style={{
-            width: 200,
-            height: 112,
+            width: compact ? 84 : 200,
+            height: compact ? 84 : 112,
             borderRadius: 10,
             border: "1px dashed var(--border)",
             background: value ? "#000" : "var(--bg-2)",

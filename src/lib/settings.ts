@@ -11,6 +11,7 @@ const DEFAULTS: SiteSettings = {
   heroTagline: "Donde empieza la noche en Panamá",
   aboutText:
     "En Calle Uruguay, Q'Paso Ayer es el punto donde empieza la noche.",
+  mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Q%27Paso%20Ayer%20Calle%20Uruguay%2C%20Ciudad%20de%20Panam%C3%A1",
 };
 
 export async function getSettings(): Promise<SiteSettings> {

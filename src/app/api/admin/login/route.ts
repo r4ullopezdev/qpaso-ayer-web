@@ -21,8 +21,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
   }
 
-  const token = await createSessionToken({ sub: user.id, username: user.username });
-  const res = NextResponse.json({ ok: true });
+  const role = user.role === "DOOR" ? "DOOR" : "ADMIN";
+  const token = await createSessionToken({ sub: user.id, username: user.username, role });
+  const res = NextResponse.json({ ok: true, role });
   res.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",

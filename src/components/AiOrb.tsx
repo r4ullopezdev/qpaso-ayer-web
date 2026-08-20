@@ -1,27 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { t, type Lang } from "@/lib/i18n";
 
 interface Msg {
   role: "user" | "assistant";
   content: string;
 }
 
-const SUGGESTIONS = [
-  "¿Qué eventos hay?",
-  "¿Cómo me apunto gratis?",
-  "¿Tienen carta?",
-  "¿Dónde están?",
-];
+const SUGGESTIONS: Record<Lang, string[]> = {
+  es: ["¿Qué eventos hay?", "¿Cómo me apunto gratis?", "¿Tienen carta?", "¿Dónde están?"],
+  en: ["What events are there?", "How do I join for free?", "Do you have a menu?", "Where are you?"],
+};
 
-export function AiOrb() {
+export function AiOrb({ lang = "es" }: { lang?: Lang }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    {
-      role: "assistant",
-      content:
-        "¡Hola! Soy el asistente de Q'Paso Ayer. Pregúntame por los eventos, cómo apuntarte gratis, la carta o cómo reservar.",
-    },
+    { role: "assistant", content: t(lang, "orb.greeting") },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,14 +37,17 @@ export function AiOrb() {
       const r = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next }),
+        body: JSON.stringify({ messages: next, lang }),
       });
       const data = await r.json();
       setMessages((m) => [...m, { role: "assistant", content: data.reply ?? "…" }]);
     } catch {
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: "Ups, hubo un problema. Escríbenos por WhatsApp." },
+        {
+          role: "assistant",
+          content: lang === "en" ? "Oops, something went wrong. Message us on WhatsApp." : "Ups, hubo un problema. Escríbenos por WhatsApp.",
+        },
       ]);
     } finally {
       setLoading(false);
@@ -130,7 +128,7 @@ export function AiOrb() {
             )}
             {messages.length <= 1 && (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 6 }}>
-                {SUGGESTIONS.map((s) => (
+                {SUGGESTIONS[lang].map((s) => (
                   <button
                     key={s}
                     onClick={() => send(s)}

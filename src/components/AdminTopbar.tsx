@@ -27,8 +27,11 @@ export function AdminTopbar({ username }: { username: string }) {
             QPA · ADMIN
           </Link>
           <Link href="/admin" style={{ fontSize: 13, color: "var(--muted)" }}>Panel</Link>
-          <Link href="/admin/eventos/new" style={{ fontSize: 13, color: "var(--muted)" }}>Nuevo evento</Link>
-          <Link href="/" style={{ fontSize: 13, color: "var(--muted)" }} target="_blank">Ver sitio ↗</Link>
+          <Link href="/admin/carta" style={{ fontSize: 13, color: "var(--muted)" }}>Carta</Link>
+          <Link href="/admin/promotores" style={{ fontSize: 13, color: "var(--muted)" }}>Promotores</Link>
+          <Link href="/admin/codigos" style={{ fontSize: 13, color: "var(--muted)" }}>Códigos</Link>
+          <Link href="/admin/stats" style={{ fontSize: 13, color: "var(--muted)" }}>Estadísticas</Link>
+          <Link href="/puerta" style={{ fontSize: 13, color: "var(--muted)" }} target="_blank">Puerta ↗</Link>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 12, color: "var(--muted)" }}>{username}</span>

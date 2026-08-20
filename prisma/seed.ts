@@ -1,7 +1,18 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { randomBytes } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const prisma = new PrismaClient();
+
+function genCode(len = 5): string {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // sin caracteres ambiguos
+  const bytes = randomBytes(len);
+  let s = "";
+  for (let i = 0; i < len; i++) s += alphabet[bytes[i] % alphabet.length];
+  return s;
+}
 
 function at(dateISO: string, h: number, m = 0): Date {
   const d = new Date(dateISO + "T00:00:00");
@@ -16,18 +27,47 @@ async function main() {
   const passwordHash = await bcrypt.hash(password, 10);
   await prisma.adminUser.upsert({
     where: { username },
-    update: { passwordHash },
-    create: { username, passwordHash },
+    update: { passwordHash, role: "ADMIN" },
+    create: { username, passwordHash, role: "ADMIN" },
   });
+
+  // ---- Portero (rol DOOR): solo accede al escáner de puerta ----
+  const doorUser = process.env.DOOR_USERNAME || "portero";
+  const doorPass = process.env.DOOR_PASSWORD || "puerta2026";
+  const doorHash = await bcrypt.hash(doorPass, 10);
+  await prisma.adminUser.upsert({
+    where: { username: doorUser },
+    update: { passwordHash: doorHash, role: "DOOR" },
+    create: { username: doorUser, passwordHash: doorHash, role: "DOOR" },
+  });
+
+  // ---- Promotor de ejemplo ----
+  const promoHash = await bcrypt.hash("carlos2026", 10);
+  await prisma.promoter.upsert({
+    where: { code: "CARLOS" },
+    update: { name: "Carlos Promotor", passwordHash: promoHash, active: true },
+    create: { code: "CARLOS", name: "Carlos Promotor", passwordHash: promoHash, active: true },
+  });
+
+  // ---- Códigos de "Mesa para chicas" (un solo uso) ----
+  const existingCodes = await prisma.tableCode.count();
+  if (existingCodes === 0) {
+    const codes = new Set<string>();
+    while (codes.size < 12) codes.add("QPA-" + genCode(4));
+    await prisma.tableCode.createMany({
+      data: [...codes].map((code) => ({ code })),
+    });
+  }
 
   // ---- Ajustes del sitio ----
   const settings: Record<string, string> = {
-    whatsapp: "+507 0000-0000",
+    whatsapp: "+507 6931-2305",
     instagram: "@qpasoayerpanama",
     address: "Calle Uruguay, Bella Vista — Ciudad de Panamá",
     hoursDinner: "Mar–Dom desde 6:00 PM",
     hoursParty: "Jue–Sáb hasta tarde",
     heroTagline: "Donde empieza la noche en Panamá",
+    mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Q%27Paso%20Ayer%20Calle%20Uruguay%2C%20Ciudad%20de%20Panam%C3%A1",
     aboutText:
       "En Calle Uruguay, Q'Paso Ayer es el punto donde empieza la noche: cena informal para compartir, juegos, tragos y la mejor fiesta. Cada noche pasa algo distinto.",
   };
@@ -132,32 +172,69 @@ async function main() {
     });
   }
 
-  // ---- Carta (placeholder editable, se reemplazará con el PDF oficial) ----
+  // Traducciones al inglés de los eventos
+  const eventsEn: Record<string, { subtitleEn: string; descriptionEn: string }> = {
+    "lanzamiento-neon-party": {
+      subtitleEn: "The big reopening night. Glow, DJ and surprises.",
+      descriptionEn: "The relaunch of Q'Paso Ayer. Neon Party with a DJ, games, welcome shots and the best energy on Calle Uruguay. Join the free list.",
+    },
+    "travelers-night": {
+      subtitleEn: "Travelers night: games, shots and people from all over the world.",
+      descriptionEn: "Beer pong, cup pong and welcome shots. The night to meet people and kick off the party. Free list.",
+    },
+    "college-thursdays": {
+      subtitleEn: "College Thursday. A new theme every week.",
+      descriptionEn: "The night to go out. American-style party games, challenges and prizes. Free college list.",
+    },
+    "panama-party": {
+      subtitleEn: "Friday reggaeton and Latin. Mixed crowd, DJ.",
+      descriptionEn: "Friday party night: reggaeton, Latin and open format. Tables and bottles by WhatsApp. Free list until a set time.",
+    },
+    "sunday-social": {
+      subtitleEn: "Chill Sunday: music, games and good food.",
+      descriptionEn: "The Sunday to recover in style: late brunch, trivia, karaoke and games.",
+    },
+    "main-event-black-party": {
+      subtitleEn: "The most important Saturday of the week.",
+      descriptionEn: "A theme every Saturday. This week: Black Party. Full production, tables and bottles.",
+    },
+  };
+  for (const [slug, en] of Object.entries(eventsEn)) {
+    await prisma.event.update({ where: { slug }, data: en });
+  }
+
+  // ---- Carta real (desde src/content/menu.json, ES + EN + destacados) ----
   await prisma.menuItem.deleteMany();
   await prisma.menuSection.deleteMany();
-  const compartir = await prisma.menuSection.create({
-    data: { title: "Para compartir", order: 1 },
-  });
-  const burgers = await prisma.menuSection.create({
-    data: { title: "Burgers y platos", order: 2 },
-  });
-  const tragos = await prisma.menuSection.create({
-    data: { title: "Tragos y cervezas", order: 3 },
-  });
-  await prisma.menuItem.createMany({
-    data: [
-      { sectionId: compartir.id, name: "Alitas (x10)", description: "BBQ, buffalo o picantes", price: "$9", order: 1 },
-      { sectionId: compartir.id, name: "Nachos QPA", description: "Para la mesa", price: "$8", order: 2 },
-      { sectionId: compartir.id, name: "Papas cargadas", description: "Queso y tocino", price: "$7", order: 3 },
-      { sectionId: burgers.id, name: "QPA Burger", description: "Doble carne, cheddar", price: "$10", order: 1 },
-      { sectionId: burgers.id, name: "Sliders (x3)", description: "Mini burgers para compartir", price: "$9", order: 2 },
-      { sectionId: tragos.id, name: "Cerveza nacional", description: "Bien fría", price: "$3", order: 1 },
-      { sectionId: tragos.id, name: "Torre de cerveza 3L", description: "Para el grupo", price: "$18", order: 2 },
-      { sectionId: tragos.id, name: "Coctel de la casa", description: "Pregunta al bartender", price: "$9", order: 3 },
-    ],
-  });
+  interface MItem { name_es: string; name_en: string; desc_es: string; desc_en: string; price: string; featured: boolean; image?: string }
+  interface MSection { title_es: string; title_en: string; items: MItem[] }
+  const menu = JSON.parse(readFileSync(join(process.cwd(), "src", "content", "menu.json"), "utf8")) as { sections: MSection[] };
+  let sOrder = 0;
+  for (const sec of menu.sections) {
+    sOrder += 1;
+    const section = await prisma.menuSection.create({
+      data: { title: sec.title_es, titleEn: sec.title_en, order: sOrder },
+    });
+    let iOrder = 0;
+    for (const it of sec.items) {
+      iOrder += 1;
+      await prisma.menuItem.create({
+        data: {
+          sectionId: section.id,
+          name: it.name_es,
+          nameEn: it.name_en || null,
+          description: it.desc_es || null,
+          descriptionEn: it.desc_en || null,
+          price: it.price || null,
+          featured: !!it.featured,
+          image: it.image || null,
+          order: iOrder,
+        },
+      });
+    }
+  }
 
-  console.log("Seed completado: admin, ajustes, eventos y carta placeholder.");
+  console.log(`Seed completado: admin, ajustes, eventos y carta real (${menu.sections.length} secciones).`);
 }
 
 main()

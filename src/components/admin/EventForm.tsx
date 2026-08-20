@@ -88,6 +88,33 @@ export function EventForm({
       </div>
 
       <div className="hairline" />
+      <div className="font-display" style={{ fontSize: 20, color: "var(--gold)" }}>Pago y mesas</div>
+      <div style={{ display: "grid", gap: 16, gridTemplateColumns: "1fr 1fr" }} className="lists-grid">
+        <div className="card" style={{ padding: 16, display: "grid", gap: 10 }}>
+          <div style={{ fontWeight: 700 }}>Entrada de pago (en puerta)</div>
+          <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <input type="checkbox" name="paidEntryOpen" defaultChecked={event ? event.paidEntryOpen : true} style={{ width: 18, height: 18 }} />
+            <span>Disponible</span>
+          </label>
+          <div>
+            <label htmlFor="paidPrice">Precio mostrado</label>
+            <input id="paidPrice" name="paidPrice" defaultValue={event?.paidPrice ?? "$10"} placeholder="$10" />
+          </div>
+        </div>
+        <div className="card" style={{ padding: 16, display: "grid", gap: 10 }}>
+          <div style={{ fontWeight: 700 }}>Mesa para chicas (con código)</div>
+          <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <input type="checkbox" name="girlsTableOpen" defaultChecked={event ? event.girlsTableOpen : true} style={{ width: 18, height: 18 }} />
+            <span>Disponible</span>
+          </label>
+          <div>
+            <label htmlFor="girlsTableMin">Mínimo del grupo</label>
+            <input id="girlsTableMin" name="girlsTableMin" type="number" min={2} max={30} defaultValue={event?.girlsTableMin ?? 4} />
+          </div>
+        </div>
+      </div>
+
+      <div className="hairline" />
       <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>
         <label style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text)" }}>
           <input type="checkbox" name="published" defaultChecked={event ? event.published : true} style={{ width: 18, height: 18 }} />

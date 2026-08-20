@@ -8,6 +8,11 @@ interface ChatMessage {
   content: string;
 }
 
+interface ChatBody {
+  messages?: ChatMessage[];
+  lang?: string;
+}
+
 async function buildContext(): Promise<string> {
   const settings = await getSettings();
   const events = await prisma.event.findMany({
@@ -61,12 +66,13 @@ function fallbackAnswer(message: string, context: string): string {
 }
 
 export async function POST(req: NextRequest) {
-  let body: { messages?: ChatMessage[] };
+  let body: ChatBody;
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "bad request" }, { status: 400 });
   }
+  const lang = body.lang === "en" ? "en" : "es";
   const messages = (body.messages ?? []).slice(-10);
   const last = messages[messages.length - 1]?.content ?? "";
   const context = await buildContext();
@@ -88,6 +94,7 @@ export async function POST(req: NextRequest) {
 Hablas en español panameño, cercano, breve y con buena energía (sin exagerar). Ayudas a la gente a descubrir eventos, apuntarse GRATIS a la lista (CHICAS o CHICOS), conocer la carta, horarios y reservas.
 Usa SOLO la información de contexto siguiente. Si no sabes algo, invita a escribir por WhatsApp. No inventes precios ni fechas.
 Cuando menciones un evento, incluye su link (/eventos/slug). Respuestas cortas.
+${lang === "en" ? "IMPORTANT: Answer in ENGLISH (the user is browsing the English site). Use /en/eventos/slug links." : "Responde en español."}
 
 CONTEXTO ACTUALIZADO:
 ${context}`;
@@ -98,9 +105,9 @@ ${context}`;
       method: "POST",
       headers: { "Content-Type": "application/json", "api-key": apiKey },
       body: JSON.stringify({
+        // model-router: usa max_completion_tokens (NO max_tokens) y NO acepta temperature.
         messages: [{ role: "system", content: system }, ...messages],
-        temperature: 0.6,
-        max_tokens: 400,
+        max_completion_tokens: 800,
       }),
     });
     if (!r.ok) {

@@ -1,0 +1,1104 @@
+{
+  "sections": [
+    {
+      "title_es": "Entradas",
+      "title_en": "Starters",
+      "items": [
+        {
+          "name_es": "Mini Picada QPA (Carne, Pollo o Chicharrón)",
+          "name_en": "Mini Picada QPA (Beef, Chicken or Pork Rinds)",
+          "desc_es": "150 gramos de proteína, chorizo argentino, papas fritas, pico de gallo y salsa de ajo.",
+          "desc_en": "150 grams of protein, Argentine chorizo, french fries, pico de gallo and garlic sauce.",
+          "price": "$11.99",
+          "featured": true
+        },
+        {
+          "name_es": "Chicharrón Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer Pork Chicharrón",
+          "desc_es": "300 gramos de jugosos trozos de costilla de cerdo con piel frita acompañados con patacón.",
+          "desc_en": "300 grams of juicy pork rib chunks with crispy fried skin, served with patacón.",
+          "price": "$12.99",
+          "featured": true,
+          "image": "/menu/chicharron-q-paso-ayer.jpeg"
+        },
+        {
+          "name_es": "Bufalo Wings",
+          "name_en": "Buffalo Wings",
+          "desc_es": "10 deliciosas alitas con el secreto de la casa, con salsa al gusto y papitas fritas.",
+          "desc_en": "10 delicious wings tossed in our house secret, with the sauce of your choice and fries.",
+          "price": "$10.99",
+          "featured": false,
+          "image": "/menu/bufalo-wings.jpeg"
+        },
+        {
+          "name_es": "Tortillas Q' Pasó Ayer (Carne, Pollo o Chicharrón)",
+          "name_en": "Q' Pasó Ayer Tortillas (Beef, Chicken or Pork Rinds)",
+          "desc_es": "150 gramos de proteína con tortillas de maíz bañadas con mantequilla, vegetales, pico de gallo, guacamole y salsa de ajo.",
+          "desc_en": "150 grams of protein with buttered corn tortillas, veggies, pico de gallo, guacamole and garlic sauce.",
+          "price": "$10.99",
+          "featured": true,
+          "image": "/menu/tortillas-q-paso-ayer-carne-pollo-o-chicharron.jpeg"
+        },
+        {
+          "name_es": "Empanaditas",
+          "name_en": "Mini Empanadas",
+          "desc_es": "5 deliciosas empanaditas acompañadas con salsa de ajo y pico de gallo.",
+          "desc_en": "5 delicious mini empanadas served with garlic sauce and pico de gallo.",
+          "price": "$8.99",
+          "featured": true,
+          "image": "/menu/empanaditas.jpeg"
+        },
+        {
+          "name_es": "Tequeños Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer Tequeños",
+          "desc_es": "5 deliciosos tequeños acompañados con salsa de ajo.",
+          "desc_en": "5 delicious cheese sticks (tequeños) served with garlic sauce.",
+          "price": "$8.99",
+          "featured": false
+        },
+        {
+          "name_es": "Quesadilla Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer Quesadilla",
+          "desc_es": "Tortilla de harina rellena con pollo, queso cheddar, queso mozarella, pico de gallo y guacamole.",
+          "desc_en": "Flour tortilla stuffed with chicken, cheddar cheese, mozzarella, pico de gallo and guacamole.",
+          "price": "$12.99",
+          "featured": false,
+          "image": "/menu/quesadilla-q-paso-ayer.jpeg"
+        },
+        {
+          "name_es": "Chicken Tenders Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer Chicken Tenders",
+          "desc_es": "180 gramos de tiras de pechuga de pollo apanadas con papas fritas y salsa tártara.",
+          "desc_en": "180 grams of breaded chicken breast strips with fries and tartar sauce.",
+          "price": "$10.99",
+          "featured": false,
+          "image": "/menu/chicken-tenders-q-paso-ayer.jpeg"
+        },
+        {
+          "name_es": "Ceviche de Corvina",
+          "name_en": "Sea Bass Ceviche",
+          "desc_es": "180 gramos de corvina en cubos con leche de tigre y vegetales, acompañado de patacones.",
+          "desc_en": "180 grams of diced sea bass in leche de tigre with veggies, served with patacones.",
+          "price": "$12.00",
+          "featured": false
+        },
+        {
+          "name_es": "Ceviche de Camarón",
+          "name_en": "Shrimp Ceviche",
+          "desc_es": "15 camarones con leche de tigre y vegetales, acompañado de patacones.",
+          "desc_en": "15 shrimp in leche de tigre with veggies, served with patacones.",
+          "price": "$12.00",
+          "featured": false,
+          "image": "/menu/ceviche-de-camaron.jpeg"
+        },
+        {
+          "name_es": "Trío de Arepitas",
+          "name_en": "Arepitas Trio",
+          "desc_es": "3 arepitas rellenas con reina pepiada (pollo y aguacate).",
+          "desc_en": "3 mini arepas filled with reina pepiada (chicken and avocado).",
+          "price": "$8.99",
+          "featured": false
+        },
+        {
+          "name_es": "Mini Brochetas Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer Mini Skewers",
+          "desc_es": "12 camarones trinchados con vegetales y chimichurri.",
+          "desc_en": "12 skewered shrimp with veggies and chimichurri.",
+          "price": "$11.99",
+          "featured": true
+        }
+      ]
+    },
+    {
+      "title_es": "Principales",
+      "title_en": "Main Dishes",
+      "items": [
+        {
+          "name_es": "Entraña Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer Skirt Steak",
+          "desc_es": "8 onzas de corte importado al grill con chimichurri y con 2 acompañamientos al gusto.",
+          "desc_en": "8 ounces of imported grilled cut with chimichurri and 2 sides of your choice.",
+          "price": "$24.99",
+          "featured": true,
+          "image": "/menu/entrana-q-paso-ayer.jpeg"
+        },
+        {
+          "name_es": "Picada Q' Pasó Ayer Carnes Mixtas",
+          "name_en": "Q' Pasó Ayer Mixed Meat Platter",
+          "desc_es": "350 gramos de carnes, pollo y 1 chorizo argentino con papas fritas, yuca frita y ensalada mixta.",
+          "desc_en": "350 grams of beef, chicken and 1 Argentine chorizo with fries, fried yuca and mixed salad.",
+          "price": "$22.99",
+          "featured": false
+        },
+        {
+          "name_es": "Enjoy Life Burger",
+          "name_en": "Enjoy Life Burger",
+          "desc_es": "8 onzas de carne angus al término deseado con pan, vegetales, queso, bacon, salsa de ajo y papas fritas con ketchup.",
+          "desc_en": "8 ounces of Angus beef cooked to your liking, with bun, veggies, cheese, bacon, garlic sauce and fries with ketchup.",
+          "price": "$11.99",
+          "featured": false
+        },
+        {
+          "name_es": "Enjoy Life Chicken Burger",
+          "name_en": "Enjoy Life Chicken Burger",
+          "desc_es": "150 gramos de pechuga frita o a la plancha con pan, vegetales, queso, bacon, salsa de ajo y papas fritas con ketchup.",
+          "desc_en": "150 grams of fried or grilled chicken breast with bun, veggies, cheese, bacon, garlic sauce and fries with ketchup.",
+          "price": "$10.99",
+          "featured": false
+        },
+        {
+          "name_es": "Wrap Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer Wrap",
+          "desc_es": "160 gramos de carne y pollo con tortilla de harina, vegetales, queso parmesano, tajadas, aguacate, salsa de ajo y papas fritas con ketchup.",
+          "desc_en": "160 grams of beef and chicken in a flour tortilla with veggies, parmesan cheese, sweet plantain, avocado, garlic sauce and fries with ketchup.",
+          "price": "$12.00",
+          "featured": false
+        },
+        {
+          "name_es": "Camarones al Ajillo",
+          "name_en": "Garlic Shrimp",
+          "desc_es": "15 camarones al ajillo acompañados con papas fritas.",
+          "desc_en": "15 garlic shrimp served with fries.",
+          "price": "$12.00",
+          "featured": false
+        },
+        {
+          "name_es": "Pollo al Grill",
+          "name_en": "Grilled Chicken",
+          "desc_es": "200 gramos de pechuga de pollo al grill con 2 acompañamientos al gusto.",
+          "desc_en": "200 grams of grilled chicken breast with 2 sides of your choice.",
+          "price": "$9.50",
+          "featured": false
+        },
+        {
+          "name_es": "Salmón al Grill",
+          "name_en": "Grilled Salmon",
+          "desc_es": "200 gramos de salmón al grill con 2 acompañamientos al gusto.",
+          "desc_en": "200 grams of grilled salmon with 2 sides of your choice.",
+          "price": "$11.99",
+          "featured": false,
+          "image": "/menu/salmon-al-grill.jpeg"
+        },
+        {
+          "name_es": "Ensalada Cesar",
+          "name_en": "Caesar Salad",
+          "desc_es": "Cortes de lechuga con aderezo de la casa, crotones de pan y queso parmesano.",
+          "desc_en": "Lettuce with house dressing, bread croutons and parmesan cheese.",
+          "price": "$8.99",
+          "featured": false
+        },
+        {
+          "name_es": "Ensalada Cesar Pollo y Bacon",
+          "name_en": "Caesar Salad with Chicken and Bacon",
+          "desc_es": "150 gramos de pechuga de pollo al grill con bacon, cortes de lechuga con aderezo de la casa, crotones de pan y queso parmesano.",
+          "desc_en": "150 grams of grilled chicken breast with bacon, lettuce with house dressing, bread croutons and parmesan cheese.",
+          "price": "$11.99",
+          "featured": false
+        }
+      ]
+    },
+    {
+      "title_es": "Cocteles",
+      "title_en": "Cocktails",
+      "items": [
+        {
+          "name_es": "Whisky Sour",
+          "name_en": "Whisky Sour",
+          "desc_es": "Johnnie Walker Red o Black Label, zumo de limón, jarabe simple, clara de huevo, rueda de naranja y cereza.",
+          "desc_en": "Johnnie Walker Red or Black Label, lemon juice, simple syrup, egg white, orange slice and cherry.",
+          "price": "$11.00",
+          "featured": false,
+          "image": "/menu/whisky-sour.jpg"
+        },
+        {
+          "name_es": "Q' Pasó Ayer",
+          "name_en": "Q' Pasó Ayer (Signature Cocktail)",
+          "desc_es": "Nuestro coctel de la casa.",
+          "desc_en": "Our signature house cocktail.",
+          "price": "$15.00",
+          "featured": false
+        },
+        {
+          "name_es": "Long Island",
+          "name_en": "Long Island",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$9.00",
+          "featured": false,
+          "image": "/menu/cocktail-long-island.jpg"
+        },
+        {
+          "name_es": "Daiquiri",
+          "name_en": "Daiquiri",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$9.00",
+          "featured": false,
+          "image": "/menu/cocktail-daiquiri.jpg"
+        },
+        {
+          "name_es": "Caipirinha",
+          "name_en": "Caipirinha",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$9.00",
+          "featured": false,
+          "image": "/menu/cocktail-caipirinha.jpg"
+        },
+        {
+          "name_es": "Derrame Cerebral",
+          "name_en": "Brain Hemorrhage",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$9.00",
+          "featured": false
+        },
+        {
+          "name_es": "Piña Colada",
+          "name_en": "Piña Colada",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$8.00",
+          "featured": false,
+          "image": "/menu/cocktail-pina-colada.jpg"
+        },
+        {
+          "name_es": "Amapola",
+          "name_en": "Amapola",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$8.00",
+          "featured": false
+        },
+        {
+          "name_es": "Cosmopolitan",
+          "name_en": "Cosmopolitan",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$8.00",
+          "featured": false,
+          "image": "/menu/cocktail-cosmopolitan.jpg"
+        },
+        {
+          "name_es": "Margarita",
+          "name_en": "Margarita",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$8.00",
+          "featured": false,
+          "image": "/menu/cocktail-margarita.jpg"
+        },
+        {
+          "name_es": "Orgasmo",
+          "name_en": "Orgasm",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$8.00",
+          "featured": false,
+          "image": "/menu/cocktail-orgasmo.jpg"
+        },
+        {
+          "name_es": "Mojito",
+          "name_en": "Mojito",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$7.50",
+          "featured": false,
+          "image": "/menu/cocktail-mojito.jpg"
+        },
+        {
+          "name_es": "Martini",
+          "name_en": "Martini",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$7.50",
+          "featured": false,
+          "image": "/menu/cocktail-martini.jpg"
+        },
+        {
+          "name_es": "Mimosa",
+          "name_en": "Mimosa",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$12.00",
+          "featured": false,
+          "image": "/menu/cocktail-mimosa.jpg"
+        },
+        {
+          "name_es": "Tropical Gin",
+          "name_en": "Tropical Gin",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$12.00",
+          "featured": false
+        },
+        {
+          "name_es": "Watermelon Gin",
+          "name_en": "Watermelon Gin",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$12.00",
+          "featured": false
+        },
+        {
+          "name_es": "Whisky Red Bull",
+          "name_en": "Whisky Red Bull",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$12.00",
+          "featured": false
+        }
+      ]
+    },
+    {
+      "title_es": "Cervezas",
+      "title_en": "Beers",
+      "items": [
+        {
+          "name_es": "Heineken",
+          "name_en": "Heineken",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$5.00",
+          "featured": true,
+          "image": "/menu/heineken.png"
+        },
+        {
+          "name_es": "Panamá Lager",
+          "name_en": "Panamá Lager",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.16",
+          "featured": true,
+          "image": "/menu/panama-lager.png"
+        },
+        {
+          "name_es": "Panamá Light",
+          "name_en": "Panamá Light",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.16",
+          "featured": true,
+          "image": "/menu/panama-light.png"
+        },
+        {
+          "name_es": "Atlas Golden Light",
+          "name_en": "Atlas Golden Light",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.16",
+          "featured": false,
+          "image": "/menu/bottle-atlas-golden-light.png"
+        },
+        {
+          "name_es": "Balboa Roja",
+          "name_en": "Balboa Roja",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false,
+          "image": "/menu/bottle-balboa-roja.jpg"
+        },
+        {
+          "name_es": "Miller Lite",
+          "name_en": "Miller Lite",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false,
+          "image": "/menu/bottle-miller-lite.jpg"
+        },
+        {
+          "name_es": "Miller Draft",
+          "name_en": "Miller Draft",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false,
+          "image": "/menu/bottle-miller-draft.jpg"
+        },
+        {
+          "name_es": "Corona",
+          "name_en": "Corona",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$5.00",
+          "featured": false,
+          "image": "/menu/bottle-corona.jpg"
+        },
+        {
+          "name_es": "Modelo",
+          "name_en": "Modelo",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$5.00",
+          "featured": false,
+          "image": "/menu/bottle-modelo.jpg"
+        },
+        {
+          "name_es": "Stella",
+          "name_en": "Stella",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$5.00",
+          "featured": false,
+          "image": "/menu/bottle-stella.jpg"
+        },
+        {
+          "name_es": "Chelada",
+          "name_en": "Chelada",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.00",
+          "featured": false
+        },
+        {
+          "name_es": "Michelada",
+          "name_en": "Michelada",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.00",
+          "featured": false,
+          "image": "/menu/bottle-michelada.jpg"
+        }
+      ]
+    },
+    {
+      "title_es": "Ron",
+      "title_en": "Rum",
+      "items": [
+        {
+          "name_es": "Carta Vieja Añejo",
+          "name_en": "Carta Vieja Añejo (Aged)",
+          "desc_es": "Trago $4.00 / Botella $30.00",
+          "desc_en": "Shot $4.00 / Bottle $30.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-carta-vieja-anejo.jpg"
+        },
+        {
+          "name_es": "Carta Vieja 8 años",
+          "name_en": "Carta Vieja 8 Years",
+          "desc_es": "Trago $5.50 / Botella $45.00",
+          "desc_en": "Shot $5.50 / Bottle $45.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-carta-vieja-8-anos.jpg"
+        },
+        {
+          "name_es": "Bacardí Blanco",
+          "name_en": "Bacardí White",
+          "desc_es": "Trago $4.50 / Botella $45.00",
+          "desc_en": "Shot $4.50 / Bottle $45.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-bacardi-blanco.png"
+        },
+        {
+          "name_es": "Abuelo Añejo",
+          "name_en": "Abuelo Añejo (Aged)",
+          "desc_es": "Trago $4.50 / Media Botella $20.00 / Botella $35.00",
+          "desc_en": "Shot $4.50 / Half Bottle $20.00 / Bottle $35.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-abuelo-anejo.jpg"
+        },
+        {
+          "name_es": "Abuelo 7 Años",
+          "name_en": "Abuelo 7 Years",
+          "desc_es": "Trago $5.50 / Botella $50.00",
+          "desc_en": "Shot $5.50 / Bottle $50.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-abuelo-7-anos.jpg"
+        },
+        {
+          "name_es": "Abuelo 12 Años",
+          "name_en": "Abuelo 12 Years",
+          "desc_es": "Trago $6.50 / Botella $75.00",
+          "desc_en": "Shot $6.50 / Bottle $75.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-abuelo-12-anos.jpg"
+        },
+        {
+          "name_es": "Zacapa 23",
+          "name_en": "Zacapa 23",
+          "desc_es": "Trago $14.00 / Botella $150.00",
+          "desc_en": "Shot $14.00 / Bottle $150.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-zacapa-23.jpg"
+        },
+        {
+          "name_es": "Diplomático",
+          "name_en": "Diplomático",
+          "desc_es": "Trago $12.50 / Botella $120.00",
+          "desc_en": "Shot $12.50 / Bottle $120.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-diplomatico.jpg"
+        }
+      ]
+    },
+    {
+      "title_es": "Whisky",
+      "title_en": "Whisky",
+      "items": [
+        {
+          "name_es": "Johnnie Walker Red",
+          "name_en": "Johnnie Walker Red",
+          "desc_es": "Trago $5.00 / Botella $80.00",
+          "desc_en": "Shot $5.00 / Bottle $80.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-johnnie-walker-red.jpg"
+        },
+        {
+          "name_es": "Johnnie Walker Black",
+          "name_en": "Johnnie Walker Black",
+          "desc_es": "Trago $8.50 / Botella $100.00",
+          "desc_en": "Shot $8.50 / Bottle $100.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-johnnie-walker-black.jpg"
+        },
+        {
+          "name_es": "Johnnie Walker Blue",
+          "name_en": "Johnnie Walker Blue",
+          "desc_es": "Trago $30.00 / Botella $650.00",
+          "desc_en": "Shot $30.00 / Bottle $650.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-johnnie-walker-blue.jpg"
+        },
+        {
+          "name_es": "Buchanan's 12 años",
+          "name_en": "Buchanan's 12 Years",
+          "desc_es": "Trago $9.00 / Media Botella $55.00 / Botella $100.00",
+          "desc_en": "Shot $9.00 / Half Bottle $55.00 / Bottle $100.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-buchanan-s-12-anos.jpg"
+        },
+        {
+          "name_es": "Buchanan's 18 años",
+          "name_en": "Buchanan's 18 Years",
+          "desc_es": "Trago $15.00 / Botella $250.00",
+          "desc_en": "Shot $15.00 / Bottle $250.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-buchanan-s-18-anos.jpg"
+        },
+        {
+          "name_es": "Old Parr 12 años",
+          "name_en": "Old Parr 12 Years",
+          "desc_es": "Trago $8.50 / Media Botella $50.00 / Botella $100.00",
+          "desc_en": "Shot $8.50 / Half Bottle $50.00 / Bottle $100.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-old-parr-12-anos.jpg"
+        },
+        {
+          "name_es": "Old Parr 18 años",
+          "name_en": "Old Parr 18 Years",
+          "desc_es": "Trago $13.50 / Botella $220.00",
+          "desc_en": "Shot $13.50 / Bottle $220.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-old-parr-18-anos.jpg"
+        },
+        {
+          "name_es": "Chivas 12'",
+          "name_en": "Chivas 12",
+          "desc_es": "Trago $8.00 / Media Botella $40.00 / Botella $90.00",
+          "desc_en": "Shot $8.00 / Half Bottle $40.00 / Bottle $90.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-chivas-12.jpg"
+        },
+        {
+          "name_es": "Chivas 18'",
+          "name_en": "Chivas 18",
+          "desc_es": "Trago $13.00 / Botella $180.00",
+          "desc_en": "Shot $13.00 / Bottle $180.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-chivas-18.jpg"
+        },
+        {
+          "name_es": "Jack Daniel's",
+          "name_en": "Jack Daniel's",
+          "desc_es": "Trago $8.00 / Botella $90.00",
+          "desc_en": "Shot $8.00 / Bottle $90.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-jack-daniel-s.jpg"
+        }
+      ]
+    },
+    {
+      "title_es": "Vodka",
+      "title_en": "Vodka",
+      "items": [
+        {
+          "name_es": "Smirnoff Vodka",
+          "name_en": "Smirnoff Vodka",
+          "desc_es": "Trago $5.00 / Media Botella $35.00 / Botella $45.00",
+          "desc_en": "Shot $5.00 / Half Bottle $35.00 / Bottle $45.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-smirnoff.jpg"
+        },
+        {
+          "name_es": "Absolut",
+          "name_en": "Absolut",
+          "desc_es": "Trago $6.00 / Media Botella $40.00 / Botella $60.00",
+          "desc_en": "Shot $6.00 / Half Bottle $40.00 / Bottle $60.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-absolut.jpg"
+        },
+        {
+          "name_es": "Grey Goose",
+          "name_en": "Grey Goose",
+          "desc_es": "Trago $10.00 / Media Botella $50.00 / Botella $100.00",
+          "desc_en": "Shot $10.00 / Half Bottle $50.00 / Bottle $100.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-grey-goose.jpg"
+        },
+        {
+          "name_es": "Belvedere",
+          "name_en": "Belvedere",
+          "desc_es": "Trago $11.00 / Botella $115.00",
+          "desc_en": "Shot $11.00 / Bottle $115.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-belvedere.jpg"
+        }
+      ]
+    },
+    {
+      "title_es": "Ginebra",
+      "title_en": "Gin",
+      "items": [
+        {
+          "name_es": "Bombay",
+          "name_en": "Bombay",
+          "desc_es": "Trago $6.00 / Botella $80.00",
+          "desc_en": "Shot $6.00 / Bottle $80.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-bombay.jpg"
+        },
+        {
+          "name_es": "Tanqueray London Dry",
+          "name_en": "Tanqueray London Dry",
+          "desc_es": "Trago $8.00 / Botella $95.00",
+          "desc_en": "Shot $8.00 / Bottle $95.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-tanqueray-london-dry.jpg"
+        },
+        {
+          "name_es": "Tanqueray Ten",
+          "name_en": "Tanqueray Ten",
+          "desc_es": "Trago $12.00 / Botella $130.00",
+          "desc_en": "Shot $12.00 / Bottle $130.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-tanqueray-ten.png"
+        },
+        {
+          "name_es": "Hendricks",
+          "name_en": "Hendrick's",
+          "desc_es": "Trago $12.00 / Botella $160.00",
+          "desc_en": "Shot $12.00 / Bottle $160.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-hendrick-s.png"
+        }
+      ]
+    },
+    {
+      "title_es": "Tequila",
+      "title_en": "Tequila",
+      "items": [
+        {
+          "name_es": "José Cuervo",
+          "name_en": "José Cuervo",
+          "desc_es": "Trago $6.00 / Botella $65.00",
+          "desc_en": "Shot $6.00 / Bottle $65.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-jose-cuervo.png"
+        },
+        {
+          "name_es": "Don Julio Blanco",
+          "name_en": "Don Julio Blanco",
+          "desc_es": "Trago $10.00 / Botella $140.00",
+          "desc_en": "Shot $10.00 / Bottle $140.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-don-julio-blanco.jpg"
+        },
+        {
+          "name_es": "Don Julio Reposado",
+          "name_en": "Don Julio Reposado",
+          "desc_es": "Trago $12.00 / Botella $170.00",
+          "desc_en": "Shot $12.00 / Bottle $170.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-don-julio-reposado.jpg"
+        },
+        {
+          "name_es": "Don Julio Añejo",
+          "name_en": "Don Julio Añejo",
+          "desc_es": "Trago $15.00 / Botella $150.00",
+          "desc_en": "Shot $15.00 / Bottle $150.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-don-julio-anejo.jpg"
+        },
+        {
+          "name_es": "Don Julio 70",
+          "name_en": "Don Julio 70",
+          "desc_es": "Trago $15.00 / Botella $220.00",
+          "desc_en": "Shot $15.00 / Bottle $220.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-don-julio-70.jpg"
+        },
+        {
+          "name_es": "Don Julio 1942",
+          "name_en": "Don Julio 1942",
+          "desc_es": "Trago $20.00 / Botella $400.00",
+          "desc_en": "Shot $20.00 / Bottle $400.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-don-julio-1942.png"
+        },
+        {
+          "name_es": "Tequila Rose",
+          "name_en": "Tequila Rose",
+          "desc_es": "Trago $10.00 / Botella $110.00",
+          "desc_en": "Shot $10.00 / Bottle $110.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-tequila-rose.jpg"
+        },
+        {
+          "name_es": "Tequila Clase Azul",
+          "name_en": "Clase Azul Tequila",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$600.00",
+          "featured": false,
+          "image": "/menu/bottle-tequila-clase-azul.png"
+        }
+      ]
+    },
+    {
+      "title_es": "Aguardiente",
+      "title_en": "Aguardiente",
+      "items": [
+        {
+          "name_es": "Seco Herrerano",
+          "name_en": "Seco Herrerano",
+          "desc_es": "Trago $4.00 / Botella $40.00",
+          "desc_en": "Shot $4.00 / Bottle $40.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/seco-herrerano.png"
+        },
+        {
+          "name_es": "Antioqueño",
+          "name_en": "Antioqueño",
+          "desc_es": "Trago $5.50 / Botella $50.00",
+          "desc_en": "Shot $5.50 / Bottle $50.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/antioqueno.jpg"
+        },
+        {
+          "name_es": "Anís Cartujo",
+          "name_en": "Anís Cartujo",
+          "desc_es": "1 litro. Trago $9.00 / Botella $65.00",
+          "desc_en": "1 Liter. Shot $9.00 / Bottle $65.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-anis-cartujo.jpg"
+        }
+      ]
+    },
+    {
+      "title_es": "Vinos",
+      "title_en": "Wines",
+      "items": [
+        {
+          "name_es": "Tinto Cabernet Sauvignon",
+          "name_en": "Red Cabernet Sauvignon",
+          "desc_es": "Copa $5.00 / Botella $40.00",
+          "desc_en": "Glass $5.00 / Bottle $40.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/tinto-cabernet-sauvignon.jpg"
+        },
+        {
+          "name_es": "Blanco Cabernet Sauvignon",
+          "name_en": "White Cabernet Sauvignon",
+          "desc_es": "Copa $5.00 / Botella $40.00",
+          "desc_en": "Glass $5.00 / Bottle $40.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/blanco-cabernet-sauvignon.jpg"
+        },
+        {
+          "name_es": "Martin Codax",
+          "name_en": "Martín Códax",
+          "desc_es": "Copa $8.50 / Botella $50.00",
+          "desc_en": "Glass $8.50 / Bottle $50.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-martin-codax.jpg"
+        },
+        {
+          "name_es": "Altos de las Hormigas",
+          "name_en": "Altos de las Hormigas",
+          "desc_es": "Copa $8.50 / Botella $50.00",
+          "desc_en": "Glass $8.50 / Bottle $50.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/altos-de-las-hormigas.png"
+        }
+      ]
+    },
+    {
+      "title_es": "Champaña",
+      "title_en": "Champagne",
+      "items": [
+        {
+          "name_es": "Anna Ice Rose",
+          "name_en": "Anna Ice Rosé",
+          "desc_es": "Copa $12.00 / Botella $120.00",
+          "desc_en": "Glass $12.00 / Bottle $120.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/anna-ice-rose.png"
+        },
+        {
+          "name_es": "Champaña Anna Brut Rose",
+          "name_en": "Anna Brut Rosé Champagne",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$120.00",
+          "featured": false,
+          "image": "/menu/champana-anna-brut-rose.png"
+        },
+        {
+          "name_es": "Moet Ice Imperial",
+          "name_en": "Moët Ice Impérial",
+          "desc_es": "Copa $20.00 / Botella $200.00",
+          "desc_en": "Glass $20.00 / Bottle $200.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-moet-ice-imperial.png"
+        },
+        {
+          "name_es": "Moet Ice Rose Imperial",
+          "name_en": "Moët Ice Rosé Impérial",
+          "desc_es": "Copa $20.00 / Botella $250.00",
+          "desc_en": "Glass $20.00 / Bottle $250.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/moet-ice-rose-imperial.jpg"
+        },
+        {
+          "name_es": "Veuve Cliquot Rose",
+          "name_en": "Veuve Clicquot Rosé",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$250.00",
+          "featured": false,
+          "image": "/menu/veuve-cliquot-rose.jpg"
+        },
+        {
+          "name_es": "Moet Bright Night",
+          "name_en": "Moët Bright Night",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$450.00",
+          "featured": false,
+          "image": "/menu/moet-bright-night.jpg"
+        },
+        {
+          "name_es": "Don Perignon",
+          "name_en": "Dom Pérignon",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$600.00",
+          "featured": false,
+          "image": "/menu/don-perignon.png"
+        }
+      ]
+    },
+    {
+      "title_es": "Otros licores",
+      "title_en": "Other Liqueurs",
+      "items": [
+        {
+          "name_es": "Baileys",
+          "name_en": "Baileys",
+          "desc_es": "Trago $9.50 / Botella $90.00. Licor crema de whisky irlandés con chocolate y vainilla.",
+          "desc_en": "Shot $9.50 / Bottle $90.00. Irish whiskey cream liqueur with chocolate and vanilla.",
+          "price": "",
+          "featured": false,
+          "image": "/menu/baileys.png"
+        },
+        {
+          "name_es": "Jägermeister",
+          "name_en": "Jägermeister",
+          "desc_es": "Trago $8.00 / Botella $100.00",
+          "desc_en": "Shot $8.00 / Bottle $100.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-jagermeister.jpg"
+        },
+        {
+          "name_es": "Hypnotic",
+          "name_en": "Hypnotic",
+          "desc_es": "Trago $12.00 / Botella $200.00",
+          "desc_en": "Shot $12.00 / Bottle $200.00",
+          "price": "",
+          "featured": false,
+          "image": "/menu/bottle-hypnotic.jpg"
+        }
+      ]
+    },
+    {
+      "title_es": "Jugos",
+      "title_en": "Juices",
+      "items": [
+        {
+          "name_es": "Mora",
+          "name_en": "Blackberry",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false
+        },
+        {
+          "name_es": "Lulo",
+          "name_en": "Lulo (Naranjilla)",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false
+        },
+        {
+          "name_es": "Guanábana",
+          "name_en": "Soursop",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false
+        },
+        {
+          "name_es": "Maracuyá",
+          "name_en": "Passion Fruit",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false
+        },
+        {
+          "name_es": "Guayaba",
+          "name_en": "Guava",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false
+        },
+        {
+          "name_es": "Piña",
+          "name_en": "Pineapple",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false
+        },
+        {
+          "name_es": "Mango",
+          "name_en": "Mango",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$3.50",
+          "featured": false
+        }
+      ]
+    },
+    {
+      "title_es": "Sodas y bebidas",
+      "title_en": "Sodas & Drinks",
+      "items": [
+        {
+          "name_es": "Coca Cola",
+          "name_en": "Coca Cola",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false
+        },
+        {
+          "name_es": "Coca Cola sin Azúcar",
+          "name_en": "Coca Cola Zero Sugar",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false
+        },
+        {
+          "name_es": "Ginger Ale",
+          "name_en": "Ginger Ale",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false
+        },
+        {
+          "name_es": "Agua",
+          "name_en": "Water",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false
+        },
+        {
+          "name_es": "Agua Tónica",
+          "name_en": "Tonic Water",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false
+        },
+        {
+          "name_es": "Club Soda",
+          "name_en": "Club Soda",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$2.50",
+          "featured": false
+        },
+        {
+          "name_es": "Agua Perrier",
+          "name_en": "Perrier Water",
+          "desc_es": "",
+          "desc_en": "",
+          "price": "$5.00",
+          "featured": false
+        }
+      ]
+    }
+  ]
+}
