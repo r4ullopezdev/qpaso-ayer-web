@@ -167,10 +167,25 @@ async function runV3() {
   await markDone(FLAG);
 }
 
+// ---------- Tanda 4: dejar visibles SOLO los eventos reales; ocultar los demos del seed ----------
+async function runV4() {
+  const FLAG = "ops_2026_08_21_v4_only_real";
+  if (await alreadyDone(FLAG)) { console.log(`[one-time] ${FLAG} ya hecho.`); return; }
+  console.log(`[one-time] ejecutando ${FLAG}...`);
+  const KEEP = ["puro-perreo", "puro-perreo-sabado", "1ra-batalla-de-aura-oficial"];
+  try {
+    const open = await prisma.event.updateMany({ where: { slug: { in: KEEP } }, data: { closed: false, published: true } });
+    const close = await prisma.event.updateMany({ where: { slug: { notIn: KEEP }, published: true, closed: false }, data: { closed: true } });
+    console.log(`[one-time] keepers abiertos=${open.count}, demos cerrados=${close.count}`);
+  } catch (e) { console.error("[one-time] error v4:", e.message); return; }
+  await markDone(FLAG);
+}
+
 async function main() {
   await runV1();
   await runV2();
   await runV3();
+  await runV4();
 }
 
 main()
