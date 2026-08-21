@@ -109,9 +109,68 @@ async function runV2() {
   await markDone(FLAG);
 }
 
+// ---------- Tanda 3: corregir — reabrir lo que cerré de más + Puro Perreo en las DOS noches ----------
+function puroPerreoData(slug, date) {
+  return {
+    slug,
+    title: "Puro Perreo",
+    subtitle: "Reggaetón · Trap · Dembow",
+    subtitleEn: "Reggaeton · Trap · Dembow",
+    description:
+      "Puro Perreo en Q'Paso Ayer, Calle Uruguay. Reggaetón, trap y dembow toda la noche. Entrada GRATIS para todos hasta la 1:00 AM, y gin tonic gratis para las mujeres. Desde las 10:00 PM.",
+    descriptionEn:
+      "Puro Perreo at Q'Paso Ayer, Calle Uruguay. Reggaeton, trap and dembow all night. FREE entry for everyone until 1:00 AM, and a free gin & tonic for the ladies. From 10:00 PM.",
+    motor: "Fiesta",
+    date,
+    startTime: "22:00",
+    coverImage: "/events/flyernoche.jpg",
+    cardImage: "/events/flyernoche.jpg",
+    published: true,
+    closed: false,
+    girlsListOpen: true,
+    guysListOpen: true,
+    girlsFreeUntil: "01:00",
+    guysFreeUntil: "01:00",
+    girlsListNote: "Gin tonic gratis para las mujeres 🍸 · Entrada gratis hasta la 1:00 AM",
+    guysListNote: "Entrada gratis hasta la 1:00 AM",
+    paidEntryOpen: true,
+    paidPrice: "$10",
+    paidNote: "Después de la 1:00 AM",
+    girlsTableOpen: true,
+    girlsTableMin: 4,
+  };
+}
+
+async function runV3() {
+  const FLAG = "ops_2026_08_21_v3_fix";
+  if (await alreadyDone(FLAG)) { console.log(`[one-time] ${FLAG} ya hecho.`); return; }
+  console.log(`[one-time] ejecutando ${FLAG}...`);
+
+  // 1) Reabrir TODO lo que cerré de más (deshace el cierre masivo de la v2).
+  try {
+    const r = await prisma.event.updateMany({ where: { published: true, closed: true }, data: { closed: false } });
+    console.log(`[one-time] eventos reabiertos: ${r.count}`);
+  } catch (e) { console.error("[one-time] error reabriendo eventos:", e.message); }
+
+  // 2) Puro Perreo en las dos noches: Viernes 21 y Sábado 22 (22:00 hora de Panamá).
+  try {
+    const vie = puroPerreoData("puro-perreo", new Date("2026-08-22T03:00:00.000Z")); // 21-ago 22:00 PA
+    const sab = puroPerreoData("puro-perreo-sabado", new Date("2026-08-23T03:00:00.000Z")); // 22-ago 22:00 PA
+    await prisma.event.upsert({ where: { slug: vie.slug }, update: vie, create: vie });
+    await prisma.event.upsert({ where: { slug: sab.slug }, update: sab, create: sab });
+    console.log("[one-time] Puro Perreo (viernes + sábado) listos.");
+  } catch (e) {
+    console.error("[one-time] error con Puro Perreo x2:", e.message);
+    return;
+  }
+
+  await markDone(FLAG);
+}
+
 async function main() {
   await runV1();
   await runV2();
+  await runV3();
 }
 
 main()
