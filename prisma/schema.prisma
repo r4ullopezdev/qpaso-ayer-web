@@ -40,7 +40,8 @@ model Event {
   motor       String? // Turismo / Universitario / After-work / Fiesta / Social / Lanzamiento
   date        DateTime // fecha + hora de inicio del evento
   startTime   String   @default("22:00") // texto mostrado, ej. "22:00"
-  coverImage  String? // ruta a imagen de portada (opcional)
+  coverImage  String? // ARTE completo (se ve entero en la página del evento)
+  cardImage   String? // imagen para la card del listado "Eventos" (formato apaisado)
   published   Boolean  @default(false)
   closed      Boolean  @default(false) // evento pasado / cerrado a inscripciones
 
@@ -51,14 +52,18 @@ model Event {
   guysFreeUntil  String  @default("23:00")
   girlsCap       Int?
   guysCap        Int?
+  girlsListNote  String? // descripción libre (ej. "Gin tonic gratis + copa de bienvenida")
+  guysListNote   String?
 
   // Entrada de pago (se paga en puerta)
   paidEntryOpen Boolean @default(true)
   paidPrice     String  @default("$10")
+  paidNote      String? // descripción libre (ej. "Incluye openbar hasta las 12")
 
   // Mesa para chicas (grupos): requiere código de un solo uso
   girlsTableOpen Boolean @default(true)
   girlsTableMin  Int     @default(4)
+  girlsTableNote String?
 
   signups   Signup[]
   createdAt DateTime @default(now())

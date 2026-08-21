@@ -4,8 +4,9 @@ import { t, type Lang } from "@/lib/i18n";
 
 export async function EventsView({ lang }: { lang: Lang }) {
   const now = new Date(Date.now() - 6 * 3600 * 1000);
-  const upcoming = await prisma.event.findMany({ where: { published: true, date: { gte: now } }, orderBy: { date: "asc" } });
-  const past = await prisma.event.findMany({ where: { published: true, date: { lt: now } }, orderBy: { date: "desc" }, take: 6 });
+  // Solo eventos activos: publicados y NO cerrados. Los cerrados/inactivos no se ven.
+  const upcoming = await prisma.event.findMany({ where: { published: true, closed: false, date: { gte: now } }, orderBy: { date: "asc" } });
+  const past = await prisma.event.findMany({ where: { published: true, closed: false, date: { lt: now } }, orderBy: { date: "desc" }, take: 6 });
 
   return (
     <div className="container-x section">

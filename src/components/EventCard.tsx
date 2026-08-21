@@ -11,6 +11,7 @@ export interface EventCardData {
   date: Date;
   startTime: string;
   coverImage: string | null;
+  cardImage: string | null;
   girlsFreeUntil: string;
   guysFreeUntil: string;
   girlsListOpen: boolean;
@@ -37,6 +38,7 @@ export function EventCard({ e, highlight = false, lang = "es" }: { e: EventCardD
   const subtitle = pick(lang, e.subtitle, e.subtitleEn);
   const girlsLabel = lang === "en" ? `Girls · free until ${e.girlsFreeUntil}` : `Chicas · gratis hasta ${e.girlsFreeUntil}`;
   const guysLabel = lang === "en" ? `Guys · free until ${e.guysFreeUntil}` : `Chicos · gratis hasta ${e.guysFreeUntil}`;
+  const cardImg = e.cardImage ?? e.coverImage;
   return (
     <Link
       href={langPath(lang, `/eventos/${e.slug}`)}
@@ -47,10 +49,10 @@ export function EventCard({ e, highlight = false, lang = "es" }: { e: EventCardD
         boxShadow: highlight ? "0 0 0 1px var(--gold), 0 14px 40px rgba(245,197,66,0.12)" : undefined,
       }}
     >
-      <div style={{ position: "relative", height: 168, background: e.coverImage ? "#000" : grad, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
-        {e.coverImage ? (
+      <div style={{ position: "relative", height: 168, background: cardImg ? "#000" : grad, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
+        {cardImg ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={e.coverImage} alt={e.title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src={cardImg} alt={e.title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
         ) : (
           <div style={{ position: "absolute", inset: 0, opacity: 0.25 }} className="bulbs" />
         )}

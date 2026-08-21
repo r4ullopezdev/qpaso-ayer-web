@@ -29,7 +29,8 @@ export function EventForm({
         <textarea id="description" name="description" rows={3} defaultValue={event?.description ?? ""} placeholder="Qué va a pasar esa noche" />
       </div>
 
-      <CoverPicker initial={event?.coverImage} />
+      <CoverPicker initial={event?.coverImage} name="coverImage" label="Arte del evento — imagen COMPLETA (se ve entera arriba, en la página del evento)" />
+      <CoverPicker initial={event?.cardImage} name="cardImage" label="Imagen de la CARD (formato apaisado, se ve en la sección Eventos)" />
 
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(150px,1fr))" }}>
         <div>
@@ -68,6 +69,10 @@ export function EventForm({
             <label htmlFor="girlsCap">Cupo (vacío = sin límite)</label>
             <input id="girlsCap" name="girlsCap" type="number" min={0} defaultValue={event?.girlsCap ?? ""} />
           </div>
+          <div>
+            <label htmlFor="girlsListNote">Qué incluye (opcional)</label>
+            <textarea id="girlsListNote" name="girlsListNote" rows={2} defaultValue={event?.girlsListNote ?? ""} placeholder="Ej. Gin tonic gratis + copa de bienvenida" />
+          </div>
         </div>
 
         <div className="card" style={{ padding: 16, display: "grid", gap: 10 }}>
@@ -83,6 +88,10 @@ export function EventForm({
           <div>
             <label htmlFor="guysCap">Cupo (vacío = sin límite)</label>
             <input id="guysCap" name="guysCap" type="number" min={0} defaultValue={event?.guysCap ?? ""} />
+          </div>
+          <div>
+            <label htmlFor="guysListNote">Qué incluye (opcional)</label>
+            <textarea id="guysListNote" name="guysListNote" rows={2} defaultValue={event?.guysListNote ?? ""} placeholder="Ej. Entrada gratis hasta la 1:00 AM" />
           </div>
         </div>
       </div>
@@ -100,6 +109,10 @@ export function EventForm({
             <label htmlFor="paidPrice">Precio mostrado</label>
             <input id="paidPrice" name="paidPrice" defaultValue={event?.paidPrice ?? "$10"} placeholder="$10" />
           </div>
+          <div>
+            <label htmlFor="paidNote">Qué incluye (opcional)</label>
+            <textarea id="paidNote" name="paidNote" rows={2} defaultValue={event?.paidNote ?? ""} placeholder="Ej. Incluye openbar hasta las 12" />
+          </div>
         </div>
         <div className="card" style={{ padding: 16, display: "grid", gap: 10 }}>
           <div style={{ fontWeight: 700 }}>Mesa para chicas (con código)</div>
@@ -110,6 +123,10 @@ export function EventForm({
           <div>
             <label htmlFor="girlsTableMin">Mínimo del grupo</label>
             <input id="girlsTableMin" name="girlsTableMin" type="number" min={2} max={30} defaultValue={event?.girlsTableMin ?? 4} />
+          </div>
+          <div>
+            <label htmlFor="girlsTableNote">Qué incluye (opcional)</label>
+            <textarea id="girlsTableNote" name="girlsTableNote" rows={2} defaultValue={event?.girlsTableNote ?? ""} placeholder="Ej. Botella de bienvenida para el grupo" />
           </div>
         </div>
       </div>
