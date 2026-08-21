@@ -12,7 +12,7 @@ export default async function PuertaPage() {
     where: { published: true, date: { gte: now } },
     orderBy: { date: "asc" },
     take: 10,
-    select: { id: true, title: true },
+    select: { id: true, title: true, girlsListOpen: true, guysListOpen: true, paidEntryOpen: true },
   });
   const promoters = await prisma.promoter.findMany({
     where: { active: true },

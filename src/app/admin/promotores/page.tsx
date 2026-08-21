@@ -3,7 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { totals } from "@/lib/promoterStats";
 import { CopyField } from "@/components/CopyField";
-import { createPromoter, togglePromoter, resetPromoterPassword, createDoorUser } from "../actions";
+import { createPromoter, togglePromoter, resetPromoterPassword, createDoorUser, deletePromoter } from "../actions";
 
 export const dynamic = "force-dynamic";
 
@@ -82,6 +82,14 @@ export default async function PromotoresPage() {
                   <input name="password" placeholder="nueva contraseña" style={{ fontSize: 12, width: 160 }} />
                   <button type="submit" className="btn btn-ghost" style={{ padding: "7px 12px", fontSize: 12 }}>Cambiar clave</button>
                 </form>
+                {!p.active && (
+                  <form action={deletePromoter}>
+                    <input type="hidden" name="id" value={p.id} />
+                    <button type="submit" className="btn btn-ghost" style={{ padding: "7px 12px", fontSize: 12, borderColor: "#4a2530", color: "var(--red-2)" }}>
+                      Eliminar
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           );

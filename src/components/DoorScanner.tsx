@@ -22,43 +22,83 @@ const ENTRY_LABEL: Record<string, string> = {
   TABLE_GIRLS: "Mesa chicas",
 };
 
-interface EventLite { id: string; title: string }
+type EntryType = "FREE" | "PAID";
+interface EventLite { id: string; title: string; girlsListOpen?: boolean; guysListOpen?: boolean; paidEntryOpen?: boolean }
 interface PromoterLite { id: string; name: string; code: string }
+const ENTRY_TITLE: Record<EntryType, string> = { FREE: "Lista gratis", PAID: "Pago en puerta" };
+type Tally = Record<string, { FREE: number; PAID: number }>; // key = promoterId ("" = sin promotor)
 
 export function DoorScanner({ username, events, promoters }: { username: string; events: EventLite[]; promoters: PromoterLite[] }) {
   const router = useRouter();
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [manual, setManual] = useState("");
-  // Registro manual
-  const [mEvent, setMEvent] = useState(events[0]?.id ?? "");
-  const [mPromoter, setMPromoter] = useState("");
-  const [mMsg, setMMsg] = useState("");
-  const [mBusy, setMBusy] = useState(false);
 
-  async function addManual(entryType: "FREE" | "PAID") {
-    if (!mEvent || mBusy) return;
-    setMBusy(true);
-    setMMsg("");
+  // ---- Conteo por promotor (puerta) ----
+  const [mEvent, setMEvent] = useState(events[0]?.id ?? "");
+  const [tally, setTally] = useState<Tally>({});
+  const [pending, setPending] = useState<Record<string, number>>({}); // key `${promoterKey}:${type}`
+  const [locked, setLocked] = useState<Record<string, boolean>>({});
+  const [loadingTally, setLoadingTally] = useState(false);
+
+  const selectedEvent = events.find((e) => e.id === mEvent);
+  const availableTypes: EntryType[] = (() => {
+    const t: EntryType[] = [];
+    if (!selectedEvent || selectedEvent.girlsListOpen !== false || selectedEvent.guysListOpen !== false) t.push("FREE");
+    if (!selectedEvent || selectedEvent.paidEntryOpen !== false) t.push("PAID");
+    return t.length ? t : ["FREE"];
+  })();
+  // fila "sin promotor" + promotores
+  const rows: PromoterLite[] = [{ id: "", name: "Sin promotor", code: "—" }, ...promoters];
+  const acc = (key: string, type: EntryType) => tally[key]?.[type] ?? 0;
+  const pend = (key: string, type: EntryType) => pending[`${key}:${type}`] ?? 0;
+
+  async function loadTally(eventId: string) {
+    if (!eventId) { setTally({}); return; }
+    setLoadingTally(true);
     try {
-      const r = await fetch("/api/door/manual", {
+      const r = await fetch(`/api/door/tally?eventId=${encodeURIComponent(eventId)}`);
+      const d = await r.json();
+      setTally(d.tallies ?? {});
+    } catch { /* noop */ }
+    finally { setLoadingTally(false); }
+  }
+  useEffect(() => { loadTally(mEvent); setPending({}); }, [mEvent]);
+
+  function bump(key: string, type: EntryType, dir: 1 | -1) {
+    setPending((p) => {
+      const k = `${key}:${type}`;
+      const next = (p[k] ?? 0) + dir;
+      // no dejar que el pendiente reste más de lo acumulado
+      const min = -acc(key, type);
+      return { ...p, [k]: Math.max(min, next) };
+    });
+  }
+
+  async function accept(key: string, type: EntryType) {
+    const k = `${key}:${type}`;
+    const delta = pending[k] ?? 0;
+    if (delta === 0 || locked[k]) return;
+    setLocked((l) => ({ ...l, [k]: true }));
+    try {
+      const r = await fetch("/api/door/tally", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventId: mEvent, promoterId: mPromoter || undefined, entryType }),
+        body: JSON.stringify({ eventId: mEvent, entryType: type, promoterId: key || null, delta }),
       });
       const d = await r.json();
-      if (!r.ok) { setMMsg(d.error ?? "Error"); }
-      else {
-        const who = promoters.find((p) => p.id === mPromoter)?.name;
-        setMMsg(`+1 ${entryType === "FREE" ? "gratis" : "pago"}${who ? " · " + who : ""} ✓ (gratis: ${d.freeCount} / pago: ${d.paidCount})`);
-        if (navigator.vibrate) navigator.vibrate(80);
+      if (r.ok) {
+        setTally((t) => ({ ...t, [key]: { FREE: acc(key, "FREE"), PAID: acc(key, "PAID"), [type]: d.count } }));
+        setPending((p) => ({ ...p, [k]: 0 }));
+        if (navigator.vibrate) navigator.vibrate(delta > 0 ? 90 : 200);
       }
-    } catch {
-      setMMsg("Error de conexión");
-    } finally {
-      setMBusy(false);
+    } catch { /* noop */ }
+    finally {
+      // el botón queda bloqueado un momento para evitar dobles clicks
+      setTimeout(() => setLocked((l) => ({ ...l, [k]: false })), 1200);
     }
   }
+
   const [log, setLog] = useState<{ name: string; status: string; time: string }[]>([]);
   const [camError, setCamError] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -204,31 +244,53 @@ export function DoorScanner({ username, events, promoters }: { username: string;
         <button type="submit" className="btn btn-gold" style={{ padding: "10px 14px" }}>Validar</button>
       </form>
 
-      {/* Registro manual (sin datos de la persona) */}
+      {/* Conteo por promotor */}
       <div className="card" style={{ marginTop: 12, padding: 16 }}>
-        <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 8 }}>Registro manual</div>
+        <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>Conteo por promotor</div>
         <div style={{ color: "var(--muted)", fontSize: 12, marginBottom: 10 }}>
-          Para quien llega sin QR y dice de parte de quién viene. Suma al promotor.
+          Elige el evento y suma cuántas personas trajo cada promotor en cada entrada. Ajusta con + / − y pulsa Aceptar para que cuente.
         </div>
-        <div style={{ display: "grid", gap: 8 }}>
-          <select value={mEvent} onChange={(e) => setMEvent(e.target.value)}>
-            {events.length === 0 && <option value="">(sin eventos)</option>}
-            {events.map((e) => <option key={e.id} value={e.id}>{e.title}</option>)}
-          </select>
-          <select value={mPromoter} onChange={(e) => setMPromoter(e.target.value)}>
-            <option value="">Sin promotor</option>
-            {promoters.map((p) => <option key={p.id} value={p.id}>{p.name} ({p.code})</option>)}
-          </select>
-          <div style={{ display: "flex", gap: 8 }}>
-            <button type="button" onClick={() => addManual("FREE")} disabled={mBusy || !mEvent} className="btn btn-gold" style={{ flex: 1 }}>
-              Entró GRATIS
-            </button>
-            <button type="button" onClick={() => addManual("PAID")} disabled={mBusy || !mEvent} className="btn btn-red" style={{ flex: 1 }}>
-              Entró PAGO
-            </button>
+        <select value={mEvent} onChange={(e) => setMEvent(e.target.value)} style={{ width: "100%" }}>
+          {events.length === 0 && <option value="">(sin eventos)</option>}
+          {events.map((e) => <option key={e.id} value={e.id}>{e.title}</option>)}
+        </select>
+
+        {mEvent && availableTypes.map((type) => (
+          <div key={type} style={{ marginTop: 14 }}>
+            <div className="font-display" style={{ fontSize: 18, color: type === "FREE" ? "var(--gold)" : "var(--red-2)" }}>
+              {ENTRY_TITLE[type]}
+            </div>
+            <div style={{ display: "grid", gap: 8, marginTop: 8 }}>
+              {rows.map((p) => {
+                const k = `${p.id}:${type}`;
+                const pd = pend(p.id, type);
+                const isLocked = !!locked[k];
+                return (
+                  <div key={p.id} style={{ display: "flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.03)", borderRadius: 10, padding: "8px 10px" }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        {p.name} {p.id && <span style={{ color: "var(--muted)", fontWeight: 400, fontSize: 12 }}>({p.code})</span>}
+                      </div>
+                      <div style={{ fontSize: 11, color: "var(--muted)" }}>ya contados: {acc(p.id, type)}</div>
+                    </div>
+                    <button type="button" aria-label="restar" onClick={() => bump(p.id, type, -1)}
+                      className="btn btn-ghost" style={{ padding: "4px 12px", fontSize: 18, lineHeight: 1 }}>−</button>
+                    <div style={{ minWidth: 26, textAlign: "center", fontWeight: 800, fontSize: 16, color: pd < 0 ? "var(--red-2)" : pd > 0 ? "var(--gold)" : "var(--text)" }}>
+                      {pd > 0 ? `+${pd}` : pd}
+                    </div>
+                    <button type="button" aria-label="sumar" onClick={() => bump(p.id, type, 1)}
+                      className="btn btn-ghost" style={{ padding: "4px 12px", fontSize: 18, lineHeight: 1 }}>+</button>
+                    <button type="button" onClick={() => accept(p.id, type)} disabled={pd === 0 || isLocked}
+                      className={pd < 0 ? "btn btn-ghost" : "btn btn-gold"} style={{ padding: "6px 12px", fontSize: 13, minWidth: 78 }}>
+                      {isLocked ? "…" : "Aceptar"}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          {mMsg && <div style={{ fontSize: 13, color: "var(--gold)", fontWeight: 600 }}>{mMsg}</div>}
-        </div>
+        ))}
+        {loadingTally && <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 8 }}>Cargando conteo…</div>}
       </div>
 
       {/* Log de la sesión */}

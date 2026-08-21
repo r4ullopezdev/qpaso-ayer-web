@@ -3,7 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { countsForEvent } from "@/lib/events";
 import { formatDateTime } from "@/lib/format";
-import { setEventFlag } from "./actions";
+import { setEventFlag, deleteEvent, deleteUnpublishedEvents } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +15,7 @@ export default async function AdminDashboard() {
   );
   const totalSignups = withCounts.reduce((a, x) => a + x.c.total, 0);
   const upcoming = events.filter((e) => e.date >= new Date()).length;
+  const unpublishedCount = events.filter((e) => !e.published).length;
 
   return (
     <div className="container-x" style={{ paddingTop: 28 }}>
@@ -25,7 +26,16 @@ export default async function AdminDashboard() {
             {events.length} eventos · {upcoming} próximos · {totalSignups} apuntados en total
           </p>
         </div>
-        <Link href="/admin/eventos/new" className="btn btn-gold">+ Nuevo evento</Link>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {unpublishedCount > 0 && (
+            <form action={deleteUnpublishedEvents}>
+              <button type="submit" className="btn btn-ghost" style={{ borderColor: "#4a2530", color: "var(--red-2)" }}>
+                Eliminar desactivados ({unpublishedCount})
+              </button>
+            </form>
+          )}
+          <Link href="/admin/eventos/new" className="btn btn-gold">+ Nuevo evento</Link>
+        </div>
       </div>
 
       <div style={{ display: "grid", gap: 14, marginTop: 24 }}>
@@ -70,6 +80,12 @@ export default async function AdminDashboard() {
               <FlagButton id={e.id} field="guysListOpen" value={!e.guysListOpen} label={e.guysListOpen ? "Cerrar lista chicos" : "Abrir lista chicos"} />
               <FlagButton id={e.id} field="published" value={!e.published} label={e.published ? "Despublicar" : "Publicar"} />
               <FlagButton id={e.id} field="closed" value={!e.closed} label={e.closed ? "Reabrir evento" : "Cerrar evento"} />
+              <form action={deleteEvent} style={{ marginLeft: "auto" }}>
+                <input type="hidden" name="id" value={e.id} />
+                <button type="submit" className="btn btn-ghost" style={{ padding: "7px 12px", fontSize: 12, borderColor: "#4a2530", color: "var(--red-2)" }}>
+                  Eliminar
+                </button>
+              </form>
             </div>
           </div>
         ))}

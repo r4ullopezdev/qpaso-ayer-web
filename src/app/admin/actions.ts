@@ -142,6 +142,15 @@ export async function deleteEvent(fd: FormData) {
   redirect("/admin");
 }
 
+/** Borra de golpe todos los eventos NO publicados (borradores/desactivados). */
+export async function deleteUnpublishedEvents() {
+  await requireAdmin();
+  await prisma.event.deleteMany({ where: { published: false } });
+  revalidatePath("/admin");
+  revalidatePath("/eventos");
+  redirect("/admin");
+}
+
 export async function toggleCheckIn(fd: FormData) {
   await requireAdmin();
   const id = str(fd, "id");
@@ -188,6 +197,14 @@ export async function togglePromoter(fd: FormData) {
   const p = await prisma.promoter.findUnique({ where: { id } });
   if (!p) return;
   await prisma.promoter.update({ where: { id }, data: { active: !p.active } });
+  revalidatePath("/admin/promotores");
+}
+
+export async function deletePromoter(fd: FormData) {
+  await requireAdmin();
+  const id = str(fd, "id");
+  // Los signups quedan con promoterId = null (onDelete: SetNull en el schema).
+  await prisma.promoter.delete({ where: { id } });
   revalidatePath("/admin/promotores");
 }
 
