@@ -181,11 +181,77 @@ async function runV4() {
   await markDone(FLAG);
 }
 
+// ---------- Tanda 5: ocultar lo pasado + programación semanal (martes a domingo) ----------
+async function runV5() {
+  const FLAG = "ops_2026_08_22_v5_weekly";
+  if (await alreadyDone(FLAG)) { console.log(`[one-time] ${FLAG} ya hecho.`); return; }
+  console.log(`[one-time] ejecutando ${FLAG}...`);
+
+  // 1) Ocultar lo que ya pasó: batalla de aura (viernes) y Puro Perreo del viernes.
+  try {
+    const r = await prisma.event.updateMany({
+      where: { slug: { in: ["1ra-batalla-de-aura-oficial", "puro-perreo"] } },
+      data: { closed: true },
+    });
+    console.log(`[one-time] eventos pasados ocultados: ${r.count}`);
+  } catch (e) { console.error("[one-time] error ocultando pasados:", e.message); }
+
+  // 2) Reabrir/fechar la programación de la semana entrante (hora de Panamá, UTC-5).
+  //    UTC = hora Panamá + 5h.
+  const week = [
+    { slug: "travelers-night", date: "2026-08-26T02:00:00.000Z", startTime: "21:00" },     // Martes 25, 21:00 PA
+    { slug: "college-thursdays", date: "2026-08-28T02:00:00.000Z", startTime: "21:00" },   // Jueves 27, 21:00 PA
+    { slug: "panama-party", date: "2026-08-29T03:00:00.000Z", startTime: "22:00" },        // Viernes 28, 22:00 PA
+    { slug: "main-event-black-party", date: "2026-08-30T03:00:00.000Z", startTime: "22:00" }, // Sábado 29, 22:00 PA
+    { slug: "sunday-social", date: "2026-08-30T22:00:00.000Z", startTime: "17:00" },       // Domingo 30, 17:00 PA
+  ];
+  try {
+    for (const w of week) {
+      await prisma.event.updateMany({
+        where: { slug: w.slug },
+        data: { date: new Date(w.date), startTime: w.startTime, published: true, closed: false },
+      });
+    }
+    console.log(`[one-time] programación semanal reabierta: ${week.length} eventos.`);
+  } catch (e) { console.error("[one-time] error programación semanal:", e.message); }
+
+  // 3) Miércoles (nuevo): Ladies Night.
+  const ladies = {
+    slug: "ladies-night",
+    title: "LADIES NIGHT",
+    subtitle: "Miércoles de chicas: copa de bienvenida y música.",
+    subtitleEn: "Ladies night: welcome drink and music.",
+    description: "Miércoles de Ladies Night en Q'Paso Ayer, Calle Uruguay. Copa de bienvenida para las chicas, música variada, juegos y buen ambiente. Apúntate gratis a la lista.",
+    descriptionEn: "Wednesday Ladies Night at Q'Paso Ayer, Calle Uruguay. Welcome drink for the ladies, mixed music, games and a great vibe. Join the free list.",
+    motor: "Social",
+    date: new Date("2026-08-27T02:00:00.000Z"), // Miércoles 26, 21:00 PA
+    startTime: "21:00",
+    published: true,
+    closed: false,
+    girlsListOpen: true,
+    guysListOpen: true,
+    girlsFreeUntil: "00:00",
+    guysFreeUntil: "23:00",
+    girlsListNote: "Copa de bienvenida gratis para las chicas 🍸",
+    paidEntryOpen: true,
+    paidPrice: "$10",
+    girlsTableOpen: true,
+    girlsTableMin: 4,
+  };
+  try {
+    await prisma.event.upsert({ where: { slug: ladies.slug }, update: ladies, create: ladies });
+    console.log("[one-time] Ladies Night (miércoles) lista.");
+  } catch (e) { console.error("[one-time] error Ladies Night:", e.message); return; }
+
+  await markDone(FLAG);
+}
+
 async function main() {
   await runV1();
   await runV2();
   await runV3();
   await runV4();
+  await runV5();
 }
 
 main()

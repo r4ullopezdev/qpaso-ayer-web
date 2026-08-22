@@ -2,11 +2,18 @@ import { prisma } from "@/lib/db";
 import { EventCard } from "@/components/EventCard";
 import { t, type Lang } from "@/lib/i18n";
 
+// Las fechas de los eventos se guardan en UTC representando la hora de Panamá (UTC-5).
+// Un evento se ARCHIVA (desaparece) automáticamente 7 h después de su hora de inicio,
+// para que la fiesta siga visible durante toda la noche y se oculte a la mañana siguiente
+// en hora de Panamá. No hay sección de "pasados": lo que ya pasó, desaparece.
+const ARCHIVE_GRACE_MS = 7 * 3600 * 1000;
+
 export async function EventsView({ lang }: { lang: Lang }) {
-  const now = new Date(Date.now() - 6 * 3600 * 1000);
-  // Solo eventos activos: publicados y NO cerrados. Los cerrados/inactivos no se ven.
-  const upcoming = await prisma.event.findMany({ where: { published: true, closed: false, date: { gte: now } }, orderBy: { date: "asc" } });
-  const past = await prisma.event.findMany({ where: { published: true, closed: false, date: { lt: now } }, orderBy: { date: "desc" }, take: 6 });
+  const cutoff = new Date(Date.now() - ARCHIVE_GRACE_MS);
+  const upcoming = await prisma.event.findMany({
+    where: { published: true, closed: false, date: { gte: cutoff } },
+    orderBy: { date: "asc" },
+  });
 
   return (
     <div className="container-x section">
@@ -18,15 +25,6 @@ export async function EventsView({ lang }: { lang: Lang }) {
         {upcoming.map((e, i) => <EventCard key={e.id} e={e} highlight={i === 0} lang={lang} />)}
       </div>
       {upcoming.length === 0 && <p style={{ color: "var(--muted)", marginTop: 20 }}>{t(lang, "events.soon")}</p>}
-
-      {past.length > 0 && (
-        <>
-          <h2 className="font-display" style={{ fontSize: 28, color: "var(--muted)", marginTop: 48 }}>{t(lang, "events.past")}</h2>
-          <div style={{ display: "grid", gap: 18, gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))", marginTop: 16, opacity: 0.6 }}>
-            {past.map((e) => <EventCard key={e.id} e={e} lang={lang} />)}
-          </div>
-        </>
-      )}
     </div>
   );
 }
