@@ -6,6 +6,7 @@ import { randomBytes } from "node:crypto";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
+import { parsePanamaInput } from "@/lib/format";
 
 function genCode(len = 4): string {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -63,7 +64,7 @@ export async function createEvent(fd: FormData) {
       motor: str(fd, "motor") || null,
       coverImage: str(fd, "coverImage") || null,
       cardImage: str(fd, "cardImage") || null,
-      date: dateStr ? new Date(dateStr) : new Date(),
+      date: dateStr ? parsePanamaInput(dateStr) : new Date(),
       startTime: str(fd, "startTime") || "22:00",
       published: bool(fd, "published"),
       girlsListOpen: bool(fd, "girlsListOpen"),
@@ -103,7 +104,7 @@ export async function saveEvent(fd: FormData) {
       motor: str(fd, "motor") || null,
       coverImage: str(fd, "coverImage") || null,
       cardImage: str(fd, "cardImage") || null,
-      date: dateStr ? new Date(dateStr) : undefined,
+      date: dateStr ? parsePanamaInput(dateStr) : undefined,
       startTime: str(fd, "startTime") || "22:00",
       published: bool(fd, "published"),
       closed: bool(fd, "closed"),
